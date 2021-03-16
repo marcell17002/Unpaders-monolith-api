@@ -7,9 +7,10 @@ module.exports = (req, res, next) => {
   EventModel.findById(postId)
     .then((post) => {
       if (!post) {
-        const error = new Error("Data not found!");
-        error.errorStatus = 404;
-        throw error;
+        return res.status(404).json({
+          status: "error",
+          message: "event not found",
+        });
       }
       removeImage(post.image, res);
       return EventModel.findByIdAndRemove(postId);
@@ -21,7 +22,10 @@ module.exports = (req, res, next) => {
       });
     })
     .catch((err) => {
-      next(err);
+      return res.status(400).json({
+        status: "error",
+        message: err,
+      });
     });
 };
 

@@ -15,5 +15,10 @@ module.exports = (req, res, next) => {
         data: result,
       });
     })
-    .catch((err) => next(err));
+    .catch((err) => {
+      return res.status(400).json({
+        status: "error",
+        message: err.message,
+      });
+    });
 };

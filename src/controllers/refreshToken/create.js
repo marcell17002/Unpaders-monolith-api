@@ -44,6 +44,9 @@ module.exports = async (req, res) => {
       });
     });
   } catch (error) {
-    console.log("ini error ", error);
+    return res.status(400).json({
+      status: "error",
+      message: err.message,
+    });
   }
 };

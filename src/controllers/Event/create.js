@@ -47,7 +47,10 @@ module.exports = (req, res, next) => {
         });
       })
       .catch((err) => {
-        console.log("err: ", err);
+        return res.status(400).json({
+          status: "error",
+          message: err.message,
+        });
       });
   });
 };

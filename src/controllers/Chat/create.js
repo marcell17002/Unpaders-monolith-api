@@ -26,6 +26,9 @@ module.exports = async (req, res, next) => {
       res.status(201).json({ message: "Send Message Success", data: result });
     })
     .catch((err) => {
-      console.log("err: ", err);
+      return res.status(400).json({
+        status: "error",
+        message: err.message,
+      });
     });
 };

@@ -9,15 +9,19 @@ module.exports = (req, res, next) => {
         return res.status(400).json({
           status: "error",
           message: "event category not found",
-          data: {},
         });
       } else {
         res.status(200).json({
           status: "success",
-          message: "Event category  founded",
+          message: "event category founded",
           data: result,
         });
       }
     })
-    .catch((err) => next(err));
+    .catch((err) => {
+      return res.status(404).json({
+        status: "error",
+        message: err.message,
+      });
+    });
 };

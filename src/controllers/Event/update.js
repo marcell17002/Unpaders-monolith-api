@@ -36,9 +36,10 @@ module.exports = (req, res, next) => {
     EventModel.findById(postId)
       .then(async (post) => {
         if (!post) {
-          const err = new Error("Data not found");
-          error.errorStatus = 404;
-          throw err;
+          return res.status(404).json({
+            status: "error",
+            message: "event not found",
+          });
         }
         console.log("ISI MEDIA POST :", post.image);
         await removeImage(post.image, res);
@@ -58,7 +59,10 @@ module.exports = (req, res, next) => {
         });
       })
       .catch((err) => {
-        next(err);
+        return res.status(400).json({
+          status: "error",
+          message: err.message,
+        });
       });
   });
 };
@@ -67,7 +71,10 @@ const removeImage = (filePath, res) => {
   console.log("filepath : ", filePath);
   fs.unlink(`./${filePath}`, async (err) => {
     if (err) {
-      return res.status(400).json({ status: "error", message: err.message });
+      return res.status(400).json({
+        status: "error",
+        message: err.message,
+      });
     }
   });
 };

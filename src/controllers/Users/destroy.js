@@ -5,10 +5,11 @@ module.exports = (req, res, next) => {
 
   User.findById(userId)
     .then((post) => {
-      if (!post) {
-        const error = new Error("Data not found!");
-        error.errorStatus = 404;
-        throw error;
+      if (post) {
+        return res.status(404).json({
+          status: "error",
+          message: "user not found",
+        });
       }
       // removeImage(post.image);
       return User.findByIdAndRemove(userId);
@@ -20,6 +21,9 @@ module.exports = (req, res, next) => {
       });
     })
     .catch((err) => {
-      next(err);
+      return res.status(400).json({
+        status: "error",
+        message: err.message,
+      });
     });
 };

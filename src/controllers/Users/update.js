@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
   User.findById(userId)
     .then((post) => {
       if (!post) {
-        const err = new Error("Data not found");
+        const err = new Error("user not found");
         error.errorStatus = 404;
         throw err;
       }
@@ -43,6 +43,9 @@ module.exports = (req, res, next) => {
       });
     })
     .catch((err) => {
-      next(err);
+      return res.status(400).json({
+        status: "error",
+        message: err.message,
+      });
     });
 };

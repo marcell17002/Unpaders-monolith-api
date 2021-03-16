@@ -30,6 +30,9 @@ module.exports = (req, res, next) => {
       res.status(201).json({ message: "Create User Success", data: result });
     })
     .catch((err) => {
-      next(err);
+      return res.status(400).json({
+        status: "error",
+        message: err.message,
+      });
     });
 };

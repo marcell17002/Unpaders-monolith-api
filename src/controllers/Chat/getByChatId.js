@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
         return res.status(400).json({
           status: "error",
           message: "chat history not found",
-          data: {},
         });
       } else {
         res.status(200).json({
@@ -19,5 +18,10 @@ module.exports = async (req, res, next) => {
         });
       }
     })
-    .catch((err) => next(err));
+    .catch((err) => {
+      return res.status(400).json({
+        status: "error",
+        message: err.message,
+      });
+    });
 };

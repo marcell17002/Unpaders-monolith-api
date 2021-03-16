@@ -7,9 +7,10 @@ module.exports = (req, res, next) => {
     .findById(chatId)
     .then((post) => {
       if (!post) {
-        const error = new Error("Data not found!");
-        error.errorStatus = 404;
-        throw error;
+        return res.status(404).json({
+          status: "error",
+          message: "chat not found",
+        });
       }
       return chatModel.findByIdAndRemove(chatId);
     })
@@ -20,6 +21,9 @@ module.exports = (req, res, next) => {
       });
     })
     .catch((err) => {
-      next(err);
+      return res.status(400).json({
+        status: "error",
+        message: err.message,
+      });
     });
 };

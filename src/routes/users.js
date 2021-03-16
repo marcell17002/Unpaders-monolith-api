@@ -30,5 +30,5 @@ router.delete("/:userId", usersController.destroy);
 
 // authentication
 router.post("/login", usersController.login);
-router.get("/logout", usersController.logout);
+router.get("/logout/:userId", usersController.logout);
 module.exports = router;
