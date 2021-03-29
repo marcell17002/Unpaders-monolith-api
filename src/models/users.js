@@ -9,9 +9,24 @@ const users = new Schema(
     },
     nim: {
       type: String,
-      required: true,
+    },
+    job: {
+      type: String,
+    },
+    faculty: {
+      type: String,
+    },
+    prodi: {
+      type: String,
+    },
+    graduated: {
+      type: String,
     },
     email: {
+      type: String,
+      required: true,
+    },
+    phone: {
       type: String,
       required: true,
     },
@@ -20,6 +35,9 @@ const users = new Schema(
       required: true,
     },
     image: {
+      type: String,
+    },
+    status: {
       type: String,
     },
   },

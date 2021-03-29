@@ -11,20 +11,19 @@ const app = express();
 const eventRoutes = require("./src/routes/event");
 const usersRoutes = require("./src/routes/users");
 const refreshTokenRoutes = require("./src/routes/refreshToken");
-const profileRoutes = require("./src/routes/profile");
 const chatRoutes = require("./src/routes/chat");
-const agendaRoutes = require("./src/routes/agenda");
+const likedRoutes = require("./src/routes/likedBy");
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
+app.use(express.static(path.join(__dirname, "public")));
 //routes
 app.use("/v1/user", usersRoutes);
 app.use("/v1/refreshToken", refreshTokenRoutes);
 app.use("/v1/event", eventRoutes);
-app.use("/v1/profile", profileRoutes);
 app.use("/v1/chat", chatRoutes);
-app.use("/v1/agenda", agendaRoutes);
+app.use("/v1/likedEvent", likedRoutes);
 
 app.use((error, req, res, next) => {
   const status = error.errorStatus || 500;

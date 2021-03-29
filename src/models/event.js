@@ -22,6 +22,9 @@ const Event = new Schema(
     author: {
       type: Object,
     },
+    status: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

@@ -11,7 +11,7 @@ const chatModel = new Schema(
       dateChat: String,
       chatText: {
         sendBy: String,
-        userImage: String,
+        // userImage: String,
         chatTime: String,
         chatContent: String,
       },

@@ -16,19 +16,20 @@ module.exports = (req, res, next) => {
   const category = req.body.category;
   const desc = req.body.desc;
   const author = req.body.author;
+  const status = req.body.status;
   var image = req.body.image;
 
   if (!isBase64(image, { mimeRequired: true })) {
     return res.status(400).json({ status: "error", message: "invalid base64" });
   }
-  base64Img.img(image, "./images", Date.now(), async (err, filepath) => {
+  base64Img.img(image, "./images/event", Date.now(), async (err, filepath) => {
     if (err) {
       return res.status(400).json({ status: "error", meessage: err.message });
     }
     const filename = filepath.split("\\").pop().split("/").pop();
     console.log("isi filename", filename);
 
-    var image = `images/${filename}`;
+    const image = `images/event/${filename}`;
 
     const Posting = new EventModel({
       title: title,
@@ -36,11 +37,12 @@ module.exports = (req, res, next) => {
       image: image,
       desc: desc,
       author: author,
+      status: status,
     });
 
     Posting.save()
       .then((result) => {
-        result.image = `${req.get("host")}/images/${filename}`;
+        result.image = `${req.get("host")}/images/event/${filename}`;
         res.status(201).json({
           message: "Create Event Success",
           data: result,
