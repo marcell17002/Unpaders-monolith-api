@@ -12,10 +12,12 @@ module.exports = (req, res, next) => {
   }
   const userId = req.body.userId;
   const eventId = req.body.eventId;
+  const status = req.body.status;
 
   const dataLiked = new LikedModel({
     userId: userId,
     eventId: eventId,
+    status: status,
   });
 
   LikedModel.find({ $and: [{ eventId: eventId }, { userId: userId }] })

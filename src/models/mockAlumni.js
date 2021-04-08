@@ -1,22 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const likedModel = new Schema(
+const mockAlumni = new Schema(
   {
-    userId: {
+    npm: {
       type: String,
       required: true,
     },
-    eventId: {
+    name: {
       type: String,
-      required: true,
-    },
-    status: {
-      type: Boolean,
       required: true,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("likedModel", likedModel);
+module.exports = mongoose.model("mockAlumni", mockAlumni);

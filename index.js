@@ -13,6 +13,11 @@ const usersRoutes = require("./src/routes/users");
 const refreshTokenRoutes = require("./src/routes/refreshToken");
 const chatRoutes = require("./src/routes/chat");
 const likedRoutes = require("./src/routes/likedBy");
+const historyChatRoutes = require("./src/routes/history");
+
+const mockAlumniRoutes = require("./src/routes/mockAlumni");
+
+const verifyToken = require("./src/middlewares/verifyToken");
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
@@ -21,9 +26,11 @@ app.use(express.static(path.join(__dirname, "public")));
 //routes
 app.use("/v1/user", usersRoutes);
 app.use("/v1/refreshToken", refreshTokenRoutes);
-app.use("/v1/event", eventRoutes);
+app.use("/v1/event", verifyToken, eventRoutes);
 app.use("/v1/chat", chatRoutes);
+app.use("/v1/historyChat", historyChatRoutes);
 app.use("/v1/likedEvent", likedRoutes);
+app.use("/v1/alumni", mockAlumniRoutes);
 
 app.use((error, req, res, next) => {
   const status = error.errorStatus || 500;

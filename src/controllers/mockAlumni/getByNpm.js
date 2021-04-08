@@ -1,26 +1,25 @@
-const likedModel = require("../../models/liked");
+const alumniModel = require("../../models/mockAlumni");
 
-module.exports = (req, res, next) => {
-  const eventId = req.params.eventId;
-
-  likedModel
-    .find({ eventId: eventId })
+module.exports = async (req, res, next) => {
+  const npm = req.params.npm;
+  alumniModel
+    .find({ npm: npm })
     .then((result) => {
       if (Object.keys(result).length === 0) {
         return res.status(400).json({
           status: "error",
-          message: "liked event's not found",
+          message: "alumni not found",
         });
       } else {
         res.status(200).json({
           status: "success",
-          message: "liked event founded",
+          message: "alumni founded",
           data: result,
         });
       }
     })
     .catch((err) => {
-      return res.status(404).json({
+      return res.status(400).json({
         status: "error",
         message: err.message,
       });

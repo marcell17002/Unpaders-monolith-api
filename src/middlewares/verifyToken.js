@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config");
+const { JWT_SECRET } = process.env;
 
 const verifyToken = (req, res, next) => {
   const bearerHeader = req.headers["authorization"];
@@ -8,11 +8,11 @@ const verifyToken = (req, res, next) => {
     const bearer = bearerHeader.split(" ");
     const bearerToken = bearer[1];
 
-    jwt.verify(bearerToken, config.secret, (err, decoded) => {
+    jwt.verify(bearerToken, JWT_SECRET, (err, decoded) => {
       if (err)
         return res
-          .status(500)
-          .send({ auth: false, message: "Failed to authenticate token." });
+          .status(403)
+          .send({ status: false, message: "Failed to authenticate token." });
 
       // if everything good, save to request for use in other routes
       req.resultId = decoded.id;
@@ -20,7 +20,7 @@ const verifyToken = (req, res, next) => {
     });
   } else {
     // Forbidden
-    res.status(403).send({ auth: false, message: "No token provided." });
+    res.status(401).send({ status: "error", message: "No token provided." });
   }
 };
 
