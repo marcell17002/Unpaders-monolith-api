@@ -8,16 +8,22 @@ const path = require("path");
 const socketio = require("socket.io");
 
 const app = express();
+const admin = require("firebase-admin");
 const eventRoutes = require("./src/routes/event");
 const usersRoutes = require("./src/routes/users");
 const refreshTokenRoutes = require("./src/routes/refreshToken");
 const chatRoutes = require("./src/routes/chat");
 const likedRoutes = require("./src/routes/likedBy");
 const historyChatRoutes = require("./src/routes/history");
-
+const notificationRoutes = require("./src/routes/notifications");
 const mockAlumniRoutes = require("./src/routes/mockAlumni");
 
 const verifyToken = require("./src/middlewares/verifyToken");
+
+admin.initializeApp({
+  credential: admin.credential.cert(require("./serviceAccountKey.json")),
+  databaseURL: "https://unpaders-21808-default-rtdb.firebaseio.com",
+});
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
@@ -31,6 +37,8 @@ app.use("/v1/chat", chatRoutes);
 app.use("/v1/historyChat", historyChatRoutes);
 app.use("/v1/likedEvent", likedRoutes);
 app.use("/v1/alumni", mockAlumniRoutes);
+
+app.use("/v1/pushNotifications", notificationRoutes);
 
 app.use((error, req, res, next) => {
   const status = error.errorStatus || 500;
