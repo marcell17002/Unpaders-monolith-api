@@ -30,7 +30,7 @@ module.exports = (req, res, next) => {
     const filename = filepath.split("\\").pop().split("/").pop();
     console.log("isi filename", filename);
 
-    const image = `images/event/${filename}`;
+    const image = `/images/event/${filename}`;
 
     const Posting = new EventModel({
       title: title,

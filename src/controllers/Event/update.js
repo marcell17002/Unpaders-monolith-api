@@ -33,8 +33,6 @@ module.exports = (req, res, next) => {
           });
         }
         console.log("ISI MEDIA POST :", post.image);
-        await removeImage(post.image, res);
-
         post.title = title;
         post.category = category;
         post.subCategory = subCategory;
@@ -74,7 +72,7 @@ module.exports = (req, res, next) => {
         const filename = filepath.split("\\").pop().split("/").pop();
         console.log("isi filename", filename);
 
-        var image = `images/event/${filename}`;
+        var image = `/images/event/${filename}`;
 
         EventModel.findById(postId)
           .then(async (post) => {
