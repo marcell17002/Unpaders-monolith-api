@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
   }
   const name = req.body.name;
   const nim = req.body.nim;
-  const job = req.body.job;
+  const level = req.body.level;
   const faculty = req.body.faculty;
   const prodi = req.body.prodi;
   const graduated = req.body.graduated;
@@ -27,14 +27,13 @@ module.exports = (req, res, next) => {
   const hashedPassword = bcrypt.hashSync(password, 6);
   const imgUsername = name.split(" ", 1).toString();
 
-  if (!isBase64(image, { mimeRequired: true })) {
-    return res.status(400).json({ status: "error", message: "invalid base64" });
-  }
+  // if (!isBase64(image, { mimeRequired: true })) {
+  //   return res.status(400).json({ status: "error", message: "invalid base64" });
+  // }
 
   User.find({ email: email })
     .then((result) => {
       if (Object.keys(result).length === 0) {
-        console.log("true");
         base64Img.img(
           image,
           "./images/profiles",
@@ -47,11 +46,11 @@ module.exports = (req, res, next) => {
             }
             const filename = filepath.split("\\").pop().split("/").pop();
             console.log("isi filename", filename);
-            const imagePath = `images/profiles/${filename}`;
+            const imagePath = `/images/profiles/${filename}`;
             const dataRegister = new User({
               name: name,
               nim: nim,
-              job: job,
+              level: level,
               faculty: faculty,
               prodi: prodi,
               graduated: graduated,

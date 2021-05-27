@@ -10,7 +10,7 @@ const users = new Schema(
     nim: {
       type: String,
     },
-    job: {
+    level: {
       type: String,
     },
     faculty: {

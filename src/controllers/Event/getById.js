@@ -1,9 +1,10 @@
 const EventModel = require("../../models/event");
 
 module.exports = (req, res, next) => {
-  const category = req.params.category;
+  const variable = req.params.variable;
+  const valueData = req.params.valueData;
 
-  EventModel.find({ category: category })
+  EventModel.find({ [variable]: [valueData] })
     .then((result) => {
       if (Object.keys(result).length === 0) {
         return res.status(400).json({

@@ -17,23 +17,13 @@ module.exports = (req, res, next) => {
 
   const title = req.body.title;
   const category = req.body.category;
+  const subCategory = req.body.subCategory;
   const desc = req.body.desc;
   const author = req.body.author;
   const status = req.body.status;
   var image = req.body.image;
 
-  if (!isBase64(image, { mimeRequired: true })) {
-    return res.status(400).json({ status: "error", message: "invalid base64" });
-  }
-  base64Img.img(image, "./images/event", Date.now(), async (err, filepath) => {
-    if (err) {
-      return res.status(400).json({ status: "error", meessage: err.message });
-    }
-    const filename = filepath.split("\\").pop().split("/").pop();
-    console.log("isi filename", filename);
-
-    var image = `images/event/${filename}`;
-
+  if (image === "") {
     EventModel.findById(postId)
       .then(async (post) => {
         if (!post) {
@@ -47,15 +37,16 @@ module.exports = (req, res, next) => {
 
         post.title = title;
         post.category = category;
+        post.subCategory = subCategory;
         post.desc = desc;
         post.author = author;
-        post.image = image;
+        post.image = post.image;
         post.status = status;
 
         return post.save();
       })
       .then((result) => {
-        result.image = `${req.get("host")}/images/event/${filename}`;
+        // result.image = `${req.get("host")}/images/event/${filename}`;
         res.status(200).json({
           message: "Data has been updated!",
           data: result,
@@ -67,7 +58,61 @@ module.exports = (req, res, next) => {
           message: err.message,
         });
       });
-  });
+  } else if (!isBase64(image, { mimeRequired: true })) {
+    return res.status(400).json({ status: "error", message: "invalid base64" });
+  } else {
+    base64Img.img(
+      image,
+      "./images/event",
+      Date.now(),
+      async (err, filepath) => {
+        if (err) {
+          return res
+            .status(400)
+            .json({ status: "error", meessage: err.message });
+        }
+        const filename = filepath.split("\\").pop().split("/").pop();
+        console.log("isi filename", filename);
+
+        var image = `images/event/${filename}`;
+
+        EventModel.findById(postId)
+          .then(async (post) => {
+            if (!post) {
+              return res.status(404).json({
+                status: "error",
+                message: "event not found",
+              });
+            }
+            console.log("ISI MEDIA POST :", post.image);
+            await removeImage(post.image, res);
+
+            post.title = title;
+            post.category = category;
+            post.subCategory = subCategory;
+            post.desc = desc;
+            post.author = author;
+            post.image = image;
+            post.status = status;
+
+            return post.save();
+          })
+          .then((result) => {
+            result.image = `${req.get("host")}/images/event/${filename}`;
+            res.status(200).json({
+              message: "Data has been updated!",
+              data: result,
+            });
+          })
+          .catch((err) => {
+            return res.status(400).json({
+              status: "error",
+              message: err.message,
+            });
+          });
+      }
+    );
+  }
 };
 
 const removeImage = (filePath, res) => {

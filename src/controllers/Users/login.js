@@ -49,6 +49,8 @@ module.exports = (req, res, next) => {
       data: {
         id: user._id,
         email: user.email,
+        status: user.status,
+        name: user.name,
         token: token,
         refreshToken: refreshToken,
       },

@@ -1,19 +1,23 @@
 const User = require("../../models/users");
 
 module.exports = (req, res, next) => {
-  const userId = req.params.userId;
+  const variable = req.params.variable;
+  const valueData = req.params.valueData;
 
-  User.findById(userId)
+  User.find({ [variable]: [valueData] })
     .then((result) => {
-      if (!result) {
-        const error = new Error("User doesnt found!");
-        error.errorStatus = 404;
-        throw error;
+      if (Object.keys(result).length === 0) {
+        return res.status(400).json({
+          status: "error",
+          message: "user not found",
+        });
+      } else {
+        res.status(200).json({
+          status: "success",
+          message: "userfounded",
+          data: result,
+        });
       }
-      res.status(200).json({
-        message: "User has been founded",
-        data: result,
-      });
     })
     .catch((err) => {
       return res.status(400).json({

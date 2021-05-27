@@ -14,6 +14,7 @@ module.exports = (req, res, next) => {
   }
   const title = req.body.title;
   const category = req.body.category;
+  const subCategory = req.body.subCategory;
   const desc = req.body.desc;
   const author = req.body.author;
   const status = req.body.status;
@@ -34,6 +35,7 @@ module.exports = (req, res, next) => {
     const Posting = new EventModel({
       title: title,
       category: category,
+      subCategory: subCategory,
       image: image,
       desc: desc,
       author: author,

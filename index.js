@@ -24,7 +24,7 @@ admin.initializeApp({
   credential: admin.credential.cert(require("./serviceAccountKey.json")),
   databaseURL: "https://unpaders-21808-default-rtdb.firebaseio.com",
 });
-
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //routes
 app.use("/v1/user", usersRoutes);
 app.use("/v1/refreshToken", refreshTokenRoutes);
-app.use("/v1/event", verifyToken, eventRoutes);
+app.use("/v1/event", eventRoutes);
 app.use("/v1/chat", chatRoutes);
 app.use("/v1/historyChat", historyChatRoutes);
 app.use("/v1/likedEvent", likedRoutes);

@@ -11,6 +11,10 @@ const Event = new Schema(
       type: String,
       required: true,
     },
+    subCategory: {
+      type: String,
+      required: true,
+    },
     desc: {
       type: String,
       required: true,
@@ -20,7 +24,14 @@ const Event = new Schema(
       required: true,
     },
     author: {
-      type: Object,
+      id: {
+        type: String,
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
     },
     status: {
       type: String,

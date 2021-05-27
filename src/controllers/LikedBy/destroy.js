@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
       return likedModel.findByIdAndRemove(likedId);
     })
     .then((result) => {
-      return res.status(200).json({
+      res.status(200).json({
         message: "Data has been deleted!",
         data: result,
       });

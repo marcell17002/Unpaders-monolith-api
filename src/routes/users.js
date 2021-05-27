@@ -13,7 +13,7 @@ router.post(
   usersController.register
 );
 router.get("/", usersController.getAll);
-router.get("/:userId", usersController.getById);
+router.get("/:variable/:valueData", usersController.getById);
 router.put(
   "/:userId",
   [

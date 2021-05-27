@@ -11,7 +11,7 @@ router.post(
   eventController.create
 );
 router.get("/", eventController.getAll);
-router.get("/:category", eventController.getByCategory);
+router.get("/:variable/:value", eventController.getById);
 // router.get("/post/:postId", eventController.getEventPostById);
 router.put(
   "/:postId",
