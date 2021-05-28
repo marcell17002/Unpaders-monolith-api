@@ -24,14 +24,8 @@ const Event = new Schema(
       required: true,
     },
     author: {
-      id: {
-        type: String,
-        required: true,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: true,
     },
     status: {
       type: String,

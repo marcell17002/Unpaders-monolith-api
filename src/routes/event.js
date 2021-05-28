@@ -12,7 +12,6 @@ router.post(
 );
 router.get("/", eventController.getAll);
 router.get("/:variable/:valueData", eventController.getById);
-router.get("/user/:userId/:name", eventController.getByUserId);
 router.put(
   "/:postId",
   [validator("title", 5), validator("desc", 50)],

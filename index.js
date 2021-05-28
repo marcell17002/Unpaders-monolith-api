@@ -29,6 +29,7 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(express.static(path.join(__dirname, "public")));
+
 //routes
 app.use("/v1/user", usersRoutes);
 app.use("/v1/refreshToken", refreshTokenRoutes);
