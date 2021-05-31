@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
     .catch((err) => {
       return res.status(404).json({
         status: "error",
-        message: "user not found",
+        message: "user not found ss",
       });
     });
 };

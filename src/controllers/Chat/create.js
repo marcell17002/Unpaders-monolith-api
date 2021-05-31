@@ -2,6 +2,7 @@ const chatModel = require("../../models/chat");
 
 module.exports = async (req, res, next) => {
   const chatID = req.body.chatID;
+  const category = req.body.category;
   const allChat = req.body.allChat;
   const dateChat = req.body.dateChat;
   const chatText = req.body.chatText;
@@ -12,6 +13,7 @@ module.exports = async (req, res, next) => {
 
   const Data = new chatModel({
     chatID: chatID,
+    category: category,
     allChat: allChat,
     dateChat: dateChat,
     chatText: chatText,

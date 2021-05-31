@@ -7,6 +7,10 @@ const chatModel = new Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: String,
+      required: true,
+    },
     allChat: {
       dateChat: String,
       chatText: {

@@ -6,7 +6,7 @@ const chatController = require("../controllers/Chat/");
 
 router.post("/", chatController.create);
 router.get("/", chatController.getAll);
-router.get("/:chatId", chatController.getByChatId);
+router.get("/:variable/:valueData", chatController.getById);
 router.delete("/:chatId", chatController.destroy);
 
 module.exports = router;

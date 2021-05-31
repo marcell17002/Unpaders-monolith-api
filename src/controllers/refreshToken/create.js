@@ -1,10 +1,7 @@
 const RefreshToken = require("../../models/refreshToken");
 const jwt = require("jsonwebtoken");
-const {
-  JWT_SECRET,
-  JWT_ACCESS_TOKEN_EXPIRED,
-  JWT_SECRET_REFRESH_TOKEN,
-} = process.env;
+const { JWT_SECRET, JWT_ACCESS_TOKEN_EXPIRED, JWT_SECRET_REFRESH_TOKEN } =
+  process.env;
 
 module.exports = async (req, res) => {
   try {
@@ -36,7 +33,7 @@ module.exports = async (req, res) => {
       const token = jwt.sign({ data: decoded.user }, JWT_SECRET, {
         expiresIn: JWT_ACCESS_TOKEN_EXPIRED,
       });
-      return res.json({
+      return res.status(200).json({
         status: "success",
         data: {
           token,

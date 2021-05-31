@@ -5,6 +5,7 @@ const router = express.Router();
 
 const validator = require("../middlewares/validator");
 const usersController = require("../controllers/Users/");
+const verifyToken = require("../middlewares/verifyToken");
 
 //creating user
 router.post(
@@ -21,11 +22,12 @@ router.put(
       .isLength({ min: 6 })
       .withMessage("Input password min. 6 character"),
   ],
+  verifyToken,
   usersController.update
 );
-router.delete("/:userId", usersController.destroy);
+router.delete("/:userId", verifyToken, usersController.destroy);
 
 // authentication
 router.post("/login", usersController.login);
-router.get("/logout/:userId", usersController.logout);
+router.delete("/logout/:userId", usersController.logout);
 module.exports = router;

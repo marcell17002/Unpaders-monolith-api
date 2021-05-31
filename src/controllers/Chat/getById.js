@@ -1,9 +1,11 @@
 const chatModel = require("../../models/chat");
 
 module.exports = async (req, res, next) => {
-  const chatId = req.params.chatId;
+  const variable = req.params.variable;
+  const valueData = req.params.valueData;
+
   chatModel
-    .find({ chatID: chatId })
+    .find({ [variable]: [valueData] })
     .then((result) => {
       if (Object.keys(result).length === 0) {
         return res.status(400).json({

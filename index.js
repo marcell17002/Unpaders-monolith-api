@@ -35,7 +35,7 @@ app.use("/v1/user", usersRoutes);
 app.use("/v1/refreshToken", refreshTokenRoutes);
 app.use("/v1/event", eventRoutes);
 app.use("/v1/chat", chatRoutes);
-app.use("/v1/historyChat", historyChatRoutes);
+app.use("/v1/historyChat", verifyToken, historyChatRoutes);
 app.use("/v1/likedEvent", likedRoutes);
 app.use("/v1/alumni", mockAlumniRoutes);
 
