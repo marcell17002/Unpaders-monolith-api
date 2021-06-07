@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const chatModel = new Schema(
   {
-    chatID: {
+    chatId: {
       type: String,
       required: true,
     },

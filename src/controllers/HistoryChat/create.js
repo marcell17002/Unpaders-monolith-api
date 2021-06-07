@@ -6,6 +6,7 @@ module.exports = async (req, res, next) => {
   const lastDate = req.body.lastDate;
   const idSender = req.body.idSender;
   const idReceiver = req.body.idReceiver;
+  const status = req.body.status;
 
   const Data = new historyModel({
     chatId: chatId,
@@ -13,6 +14,7 @@ module.exports = async (req, res, next) => {
     lastDate: lastDate,
     idSender: idSender,
     idReceiver: idReceiver,
+    status: status,
   });
 
   Data.save()

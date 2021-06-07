@@ -16,6 +16,7 @@ module.exports = async (req, res, next) => {
   const lastDate = req.body.lastDate;
   const idSender = req.body.idSender;
   const idReceiver = req.body.idReceiver;
+  const status = req.body.status;
   const idChat = req.params.idChat;
 
   historyModel
@@ -31,6 +32,7 @@ module.exports = async (req, res, next) => {
       post.lastDate = lastDate;
       post.idSender = idSender;
       post.idReceiver = idReceiver;
+      post.status = status;
 
       return post.save();
     })
