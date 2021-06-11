@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-start": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build:docker": "docker build -t marcell17002/unpaders-mono-api .",
+    "push:docker": "docker push marcell17002/unpaders-mono-api"
   },
   "author": "Marcell Antonius",
   "license": "ISC",

@@ -6,6 +6,7 @@ const eventController = require("../controllers/Event/");
 const validator = require("../middlewares/validator");
 
 const verifyToken = require("../middlewares/verifyToken");
+
 router.post(
   "/",
   [validator("title", 5), validator("desc", 50)],
@@ -20,6 +21,6 @@ router.put(
   verifyToken,
   eventController.update
 );
-router.delete("/:postId", eventController.destroy);
+router.delete("/:postId", verifyToken, eventController.destroy);
 
 module.exports = router;

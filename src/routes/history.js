@@ -3,11 +3,12 @@ const express = require("express");
 const router = express.Router();
 
 const historyController = require("../controllers/HistoryChat");
+const verifyToken = require("../middlewares/verifyToken");
 
-router.post("/", historyController.create);
-router.get("/", historyController.getAll);
-router.get("/:variable/:valueData", historyController.getById);
-router.put("/:idChat", historyController.update);
-router.delete("/:idChat", historyController.destroy);
+router.post("/", verifyToken, historyController.create);
+router.get("/", verifyToken, historyController.getAll);
+router.get("/:variable/:valueData", verifyToken, historyController.getById);
+router.put("/:idChat", verifyToken, historyController.update);
+router.delete("/:idChat", verifyToken, historyController.destroy);
 
 module.exports = router;
