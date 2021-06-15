@@ -29,5 +29,5 @@ router.delete("/:userId", verifyToken, usersController.destroy);
 
 // authentication
 router.post("/login", usersController.login);
-router.delete("/logout/:userId", verifyToken, usersController.logout);
+router.delete("/logout/:userId", usersController.logout);
 module.exports = router;
