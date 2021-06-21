@@ -15,19 +15,16 @@ router.post(
 );
 router.get("/", usersController.getAll);
 router.get("/:variable/:valueData", usersController.getById);
-router.put(
-  "/:userId",
-  [
-    body("password")
-      .isLength({ min: 6 })
-      .withMessage("Input password min. 6 character"),
-  ],
-  verifyToken,
-  usersController.update
-);
+router.put("/:userId", verifyToken, usersController.update);
 router.delete("/:userId", verifyToken, usersController.destroy);
 
 // authentication
 router.post("/login", usersController.login);
 router.delete("/logout/:userId", usersController.logout);
+router.put(
+  "/changePassword/:userId",
+  validator("newPassword", 6),
+  verifyToken,
+  usersController.changePassword
+);
 module.exports = router;

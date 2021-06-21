@@ -11,6 +11,18 @@ const mockAlumni = new Schema(
       type: String,
       required: true,
     },
+    faculty: {
+      type: String,
+      required: true,
+    },
+    department: {
+      type: String,
+      required: true,
+    },
+    graduated: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

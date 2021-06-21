@@ -25,8 +25,6 @@ module.exports = (req, res, next) => {
   var image = req.body.image;
   const email = req.body.email;
   const status = req.body.status;
-  const password = req.body.password;
-  const hashedPassword = bcrypt.hashSync(password, 6);
 
   const userId = req.params.userId;
   const imgUsername = name.split(" ", 1).toString();
@@ -52,7 +50,6 @@ module.exports = (req, res, next) => {
         post.phone = phone;
         post.image = post.image;
         post.email = email;
-        post.password = hashedPassword;
         post.status = status;
 
         return post.save();
@@ -109,7 +106,6 @@ module.exports = (req, res, next) => {
             post.phone = phone;
             post.image = imageUpdated;
             post.email = email;
-            post.password = hashedPassword;
             post.status = status;
 
             return post.save();

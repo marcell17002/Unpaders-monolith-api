@@ -5,6 +5,7 @@ const getAll = require("./getAll");
 const getById = require("./getById");
 const update = require("./update");
 const destroy = require("./destroy");
+const changePassword = require("./changePassword");
 
 module.exports = {
   register,
@@ -14,4 +15,5 @@ module.exports = {
   getById,
   update,
   destroy,
+  changePassword,
 };
